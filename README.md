@@ -1,6 +1,5 @@
 # weatherreport
 
-A generated IBM Cloud application
 
 [![](https://img.shields.io/badge/IBM%20Cloud-powered-blue.svg)](https://bluemix.net)
 
@@ -12,16 +11,5 @@ npm test
 npm start
 ```
 
-## Build, run, and deploy using IDT
 
-```bash
-# Install needed dependencies:
-npm run idt:install
-# Build the docker image for your app:
-npm run idt:build
-# Run the app locally through docker:
-npm run idt:run
-# Deploy your app to IBM Cloud:
-npm run idt:deploy
-```
 # weatherreport
