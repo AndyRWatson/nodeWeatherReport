@@ -61,13 +61,22 @@ function getWeatherReport(city, callback) {
         var observation=body.observation;
         //var city=observation.obs_name;
         //var forecast=observation.wx_phrase;
-        var wc = observation.wx_icon;
-        weather_rc = weatherType(observation.wx_icon);
+        
+       var wc = 35 
+        if (typeof observation !== 'undefined')
+        {
+            wc=observation.wx_icon;
+            weather_rc = weatherType(wc);
 
-        console.log("[getWeatherReport] Report for ",lat, long, observation.obs_name,observation.wx_phrase,observation.wx_icon); 
-        console.log("[getWeatherReport] city is", weather_rc);
+        }
+        else
+        {
+            weather_rc="Sunny";
+        }
+
+        //console.log("[getWeatherReport] Report for ",lat, long, observation.obs_name,observation.wx_phrase,observation.wx_icon); 
+        //console.log("[getWeatherReport] city is", weather_rc);
         callback(weather_rc);
-        //return(weather_rc);
         });
       }
    );
