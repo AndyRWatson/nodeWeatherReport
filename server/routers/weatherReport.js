@@ -53,8 +53,9 @@ function getWeatherReport(city, callback) {
       let long = JSON.stringify(body.results[0].locations[0].latLng.lng)
       //console.log("[getWeatherReport]",city ,lat, long)
 
-      let url="https://40e8a128-041e-43ef-8940-dc633dad734f:vbidsyUzG9@twcservice.eu-gb.mybluemix.net/api/weather/v1/geocode/" + lat + "/" + long + "/observations.json?language=en-US";
-
+      let credentials="563c478c-7b4b-47c5-b383-53023a755c3f:N8nQZKZT3e"
+      let url="https://"+ credentials +"@twcservice.eu-gb.mybluemix.net/api/weather/v1/geocode/" + lat + "/" + long + "/observations.json?language=en-US";
+      console.log("url="+url);
       request(url, { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
 
@@ -74,8 +75,8 @@ function getWeatherReport(city, callback) {
             weather_rc="Sunny";
         }
 
-        //console.log("[getWeatherReport] Report for ",lat, long, observation.obs_name,observation.wx_phrase,observation.wx_icon); 
-        //console.log("[getWeatherReport] city is", weather_rc);
+        console.log("[getWeatherReport] Report for ",lat, long, observation.obs_name,observation.wx_phrase,observation.wx_icon); 
+        console.log("[getWeatherReport] city is ", weather_rc);
         callback(weather_rc);
         });
       }
