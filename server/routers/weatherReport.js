@@ -43,6 +43,13 @@ function weatherType(wc){
 // Get Weather Report  for a given city name
 // ***************************************
 function getWeatherReport(city, callback) {
+
+
+    // ********************************************************************
+    // First convert city name to long/lat for use by Weather Company apis 
+    // ********************************************************************
+ 
+    
     let geolocation = "http://open.mapquestapi.com/geocoding/v1/address?key=BrlRnuf0IpXHl1ubie8ZeBY7BLhlu86W&location=" + city;
     var weather_rc="Cloudy";
 
@@ -52,6 +59,10 @@ function getWeatherReport(city, callback) {
       let lat = JSON.stringify(body.results[0].locations[0].latLng.lat)
       let long = JSON.stringify(body.results[0].locations[0].latLng.lng)
       //console.log("[getWeatherReport]",city ,lat, long)
+
+      // *********************************************************
+      // Peform city lookup using Weather Company api (IBM Cloud)
+      // *********************************************************
 
       let credentials="563c478c-7b4b-47c5-b383-53023a755c3f:N8nQZKZT3e"
       let url="https://"+ credentials +"@twcservice.eu-gb.mybluemix.net/api/weather/v1/geocode/" + lat + "/" + long + "/observations.json?language=en-US";
@@ -63,6 +74,7 @@ function getWeatherReport(city, callback) {
         //var city=observation.obs_name;
         //var forecast=observation.wx_phrase;
         
+       // Check weather type and group similar types  
        var wc = 35 
         if (typeof observation !== 'undefined')
         {
@@ -91,6 +103,7 @@ function getWeatherReport(city, callback) {
 
 module.exports = function(app) {
   var router = express.Router();
+  var weather_rc = "Nice";
 
   router.get('/', function (req, res, next) {
      var city = req.query.city;
@@ -98,13 +111,14 @@ module.exports = function(app) {
      if (city == null) {
         city = "Hursley";
      }
-       
-     var forecast;
-
-     getWeatherReport(city, function(weather_rc){
-         console.log("Forecast for ",city," is ",weather_rc);
+      
+// ***********************
+// Uncomment following block 
+// ***********************
+//     getWeatherReport(city, function(weather_rc){
+//         console.log("Forecast for ",city," is ",weather_rc);
          res.json({weather: weather_rc}); 
-     }); 
+//     }); 
      
     
      
