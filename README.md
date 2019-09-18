@@ -15,7 +15,7 @@ Once registered for the service you will need to include your service api key de
 let credentials="insert your IBM Cloud Weather Company API key here"
 ```
 
-### Update weatherReport.js with host IP address of turbine
+### Update weatherReport.js with remote host IP address of turbine
 To allow the application to control the wind turbine speed you will need to ensure that the IP address of the wind turbine is correctly set within *./server/routers/weatherReport.js*.   As the turbine is controlled by an express app the port number will typically have defaulted to *3000* and not need changing
 
 ```
