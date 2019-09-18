@@ -1,4 +1,4 @@
-# nodeWeatherreport
+# nodeWeatherReport
 
 This sample is a node version of the Weather Report application which can drive the 3D printed wind turbine https://github.com/AndyRWatson/3DWindTurbine
 
