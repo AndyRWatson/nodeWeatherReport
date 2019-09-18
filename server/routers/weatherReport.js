@@ -1,6 +1,7 @@
 var express = require('express');
 const request = require('request');
 
+let credentials="<insert IBM Weather Company Data  key here>"
 
 // *****************************************************
 // Return a weather type
@@ -11,7 +12,7 @@ const request = require('request');
 
 function weatherType(wc){
  console.log("[weatherType] ",wc);
- var weather="Cloudy"
+ var weather="Cloudy";
  if(wc==null)
  {
      weather="Thunder";
@@ -38,6 +39,31 @@ function weatherType(wc){
  return(weather);
 }
 
+function setSpeed(wind_speed)
+{
+  var turbineSpeed=90;
+  var hostname="192.168.0.100";
+  var port="3000";
+  var url="";
+  
+  if (wind_speed > 50) {
+    turbineSpeed=1;
+  }
+  else
+  {
+    turbineSpeed=100 - (wind_speed*2);
+  }
+
+  
+  url="http://"+hostname+":"+port+"/setTurbineSpeed?speed="+turbineSpeed;
+
+  request(url, { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); } });
+  
+  console.log("[POST]"+url);
+  
+  return 0;
+}
 
 // ***************************************
 // Get Weather Report  for a given city name
@@ -52,6 +78,7 @@ function getWeatherReport(city, callback) {
     
     let geolocation = "http://open.mapquestapi.com/geocoding/v1/address?key=BrlRnuf0IpXHl1ubie8ZeBY7BLhlu86W&location=" + city;
     var weather_rc="Cloudy";
+  
 
     request(geolocation, { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
@@ -64,21 +91,25 @@ function getWeatherReport(city, callback) {
       // Peform city lookup using Weather Company api (IBM Cloud)
       // *********************************************************
 
-      let credentials="563c478c-7b4b-47c5-b383-53023a755c3f:N8nQZKZT3e"
+      
       let url="https://"+ credentials +"@twcservice.eu-gb.mybluemix.net/api/weather/v1/geocode/" + lat + "/" + long + "/observations.json?language=en-US";
       console.log("url="+url);
       request(url, { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
 
         var observation=body.observation;
-        //var city=observation.obs_name;
-        //var forecast=observation.wx_phrase;
-        
+       
        // Check weather type and group similar types  
        var wc = 35 
+       var wind_speed=1;
+       var wind_direction="N";
         if (typeof observation !== 'undefined')
         {
             wc=observation.wx_icon;
+            wind_speed=observation.wspd;
+            wind_direction=observation.wdir_cardinal;
+            console.log("[wind speed] :",wind_speed);
+            console.log("[wind direction] :",wind_direction);
             weather_rc = weatherType(wc);
 
         }
@@ -86,15 +117,18 @@ function getWeatherReport(city, callback) {
         {
             weather_rc="Sunny";
         }
-
-        console.log("[getWeatherReport] Report for ",lat, long, observation.obs_name,observation.wx_phrase,observation.wx_icon); 
+ 
+        // ***********************************************
+        // 2. uncomment to cause wind turbine to rotate
+        // ***********************************************
+        // setSpeed(wind_speed);
+        
+      
         console.log("[getWeatherReport] city is ", weather_rc);
         callback(weather_rc);
         });
       }
    );
-//   console.log("[getWeatherReport] city is",weather_rc);
-//   return(weather_rc);
 }
 
 // ***************
@@ -112,16 +146,13 @@ module.exports = function(app) {
         city = "Hursley";
      }
       
-// ***********************
-// Uncomment following block 
-// ***********************
-//     getWeatherReport(city, function(weather_rc){
-//         console.log("Forecast for ",city," is ",weather_rc);
-         res.json({weather: weather_rc}); 
-//     }); 
-     
-    
-     
+// *********************************************************************************************
+// 1. Uncomment following block to perform real weather lookup from IBM Weather Company Data API
+// *********************************************************************************************
+    // getWeatherReport(city, function(weather_rc){
+          res.json({weather: weather_rc}); 
+    //  }); 
+      console.log("Forecast for [",city,"] is ",weather_rc);
   });
 
   console.log("/WeatherReport ** Running **")
