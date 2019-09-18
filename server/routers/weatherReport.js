@@ -1,7 +1,12 @@
 var express = require('express');
 const request = require('request');
 
-let credentials="<insert IBM Weather Company Data  key here>"
+// Configurable parts for demo
+
+let credentials="<insert IBM Weather Company Data API key here>"
+var turbineHostname="192.168.0.100";
+var turbinePort="3000";
+
 
 // *****************************************************
 // Return a weather type
