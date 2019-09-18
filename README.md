@@ -1,6 +1,6 @@
 # nodeWeatherReport
 
-This sample is a node version of the Weather Report application which can drive the 3D printed wind turbine https://github.com/AndyRWatson/3DWindTurbine
+This sample is a node version of the Weather Report application which can drive the 3D printed wind turbine https://github.com/AndyRWatson/turbine3D
 
 [![](https://img.shields.io/badge/IBM%20Cloud-powered-blue.svg)](https://bluemix.net)
 
