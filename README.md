@@ -27,7 +27,7 @@ var turbinePort="3000";
 
 There are three steps to the codewind demo,  driving against the express application running on [Turbine](https://github.com/AndyRWatson/Turbine)
 
-1. Build and run nodeWeatherReport express application within EclipseCodewind.  Access the application url http://127.0.0.1:port/weatherReport.html and you should see the weather report page which will allow you to enter a city name and return the current weather report.   By default this will always return the value Nice
+1. Build and run nodeWeatherReport express application within EclipseCodewind.  Access the application url http://127.0.0.1:port/weatherReport.html and you should see the weather report page which will allow you to enter a city name and return the current weather report.   By default this will always return the value of 'Nice'
   
 2. demonstrate itterative development by uncommenting the code block to make a call to a function that performs a weather channel api call (via IBM cloud) based on the entered city name.   The code will automatically rebuild on save,  and when accessing the application the page should now return a real time weather status based on the city name.   By accessing the nodeWeatherReport node application logs you should now also see more detailed weather information from IBM Cloud service
 
