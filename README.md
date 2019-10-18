@@ -23,13 +23,37 @@ var turbineHostname="192.168.0.100";
 var turbinePort="3000";
 ```
 
-## Run locally as Node.js application
+## Codewind demo
 
-```bash
-npm install
-npm test
-npm start
+There are three steps to the codewind demo,  driving against the express application running on [Turbine](https://github.com/AndyRWatson/Turbine)
+
+1. Build and run nodeWeatherReport express application within EclipseCodewind.  Access the application url http://127.0.0.1:port/weatherReport.html and you should see the weather report page which will allow you to enter a city name and return the current weather report.   By default this will always return the value Nice
+  
+2. demonstrate itterative development by uncommenting the code block to make a call to a function that performs a weather channel api call (via IBM cloud) based on the entered city name.   The code will automatically rebuild on save,  and when accessing the application the page should now return a real time weather status based on the city name.   By accessing the nodeWeatherReport node application logs you should now also see more detailed weather information from IBM Cloud service
+
+```     
+// *********************************************************************************************
+// 1. Uncomment following block to perform real weather lookup from IBM Weather Company Data API
+// *********************************************************************************************
+     //getWeatherReport(city, function(weather_rc){
+          res.json({weather: weather_rc}); 
+     //}); 
+      console.log("Forecast for [",city,"] is ",weather_rc);
+  });
 ```
+
+3. Final Step is to uncomment the call to send a http post to the turbine which will adjust the rotation speed based on the realtime wind speed for the entered city name.
+
+```
+        // ***********************************************
+        // 2. uncomment to cause wind turbine to rotate
+        // ***********************************************
+        //setSpeed(wind_speed);
+```        
+  
+  
+
+
 
 
 
