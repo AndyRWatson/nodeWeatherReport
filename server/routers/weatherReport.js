@@ -47,8 +47,6 @@ function weatherType(wc){
 function setSpeed(wind_speed)
 {
   var turbineSpeed=90;
-  var hostname="192.168.0.100";
-  var port="3000";
   var url="";
   
   if (wind_speed > 50) {
@@ -60,7 +58,7 @@ function setSpeed(wind_speed)
   }
 
   
-  url="http://"+hostname+":"+port+"/setTurbineSpeed?speed="+turbineSpeed;
+  url="http://"+turbineHostname+":"+turbinePort+"/setTurbineSpeed?speed="+turbineSpeed;
 
   request(url, { json: true }, (err, res, body) => {
     if (err) { return console.log(err); } });
