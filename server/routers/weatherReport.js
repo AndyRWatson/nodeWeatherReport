@@ -46,15 +46,20 @@ function weatherType(wc){
 
 function setSpeed(wind_speed)
 {
-  var turbineSpeed=90;
+  var turbineSpeed=0;
   var url="";
   
   if (wind_speed > 50) {
-    turbineSpeed=1;
+    turbineSpeed=100;
+  }
+  else
+  if (wind_speed == 0)
+  {
+    turbineSpeed=0;
   }
   else
   {
-    turbineSpeed=100 - (wind_speed*2);
+    turbineSpeed=50+wind_speed;
   }
 
   
