@@ -145,7 +145,7 @@ function getWeatherReport(city, callback) {
 
 module.exports = function(app) {
   var router = express.Router();
-  var weather_rc = "Nice";
+  var weather_rc = "Always Nice";
 
   router.get('/', function (req, res, next) {
      var city = req.query.city;
